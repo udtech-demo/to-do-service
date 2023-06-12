@@ -1,0 +1,16 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+# new directive
+directive @auth on FIELD_DEFINITION
+
+type Query {
+    me: User!@auth @goField(forceResolver: true)
+}
+
+type Mutation {
+    auth: Auth! @goField(forceResolver: true)
+}

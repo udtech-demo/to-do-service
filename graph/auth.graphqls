@@ -1,0 +1,13 @@
+type SignInResult {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type SignUpResult {
+  isCreated: Boolean!
+}
+
+type Auth {
+  signIn(email: String!, password: String!): SignInResult! @goField(forceResolver: true)
+  signUp(input: NewUser!): SignUpResult! @goField(forceResolver: true)
+}

@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "def16e68-4bdb-443e-90c6-76e665994b93",
+		"name": "todo-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19125242"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createTodo($input: NewTodo!){\n  createTodo(input: $input){\n    id\n  \ttext\n  \tdone\n    user {\n      id\n  \t\tname\n  \t\temail\n    }\n  }\n}",
+						"variables": "{\n  \"input\":{\n    \"text\": \"123\"\n  }\n}"
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code === 200) {",
+							"        var jsonData = pm.response.json();",
+							"        postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"    }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation{\n    auth{\n        signIn(email: \"example@example.com\", password: \"password123\") {\n            access_token,\n            refresh_token\n        }\n    }\n }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation createTodo($input: NewTodo!){\n#     # auth{\n#     #     signIn(email: \"test@email.com\", password: \"12345\")\n#     # }\n  createTodo(input: $input){\n    id\n  \ttext\n  \tdone\n    user {\n      id\n  \t\tname\n  \t\temail\n    }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\n    markCompleteTodo(todoID : \"3c0d11f1-8615-486f-820f-aeb0d900cd9d\"){\n        id\n  \t    text\n  \t    done\n        user {\n            id\n  \t\t    name\n  \t\t    email\n        }\n    }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query todos{\n    todos{\n ... on Todo {\n        id\n        text\n        done\n        user {\n             id\n            name\n            email\n        }\n    }\n    }\n   \n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reg",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "#  mutation signUp($input: NewUser!) {\n#             signUp(input: $input) \n#         } \n \n mutation {\n  auth {\n    signUp(input: {\n       name: \"vlad\", \n       email: \"example@example.com\",\n       password: \"password123\"\n    }) {\n       isCreated\n    }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " query{\n    me{\n        id\n        name\n        email\n    }\n }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8787/api/v1/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8787",
+					"path": [
+						"api",
+						"v1",
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

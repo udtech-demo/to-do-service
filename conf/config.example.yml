@@ -1,0 +1,22 @@
+env: "dev"
+server_name: "to-do-service"       # server name
+current_domain: "127.0.0.1:8080"    # for generate links...
+
+# HTTP settings:
+http:
+  port: ":8080"
+
+# Jwt settings:
+jwt:
+  at_lifetime: "15m"   # access token lifetime
+  rt_lifetime: "72h"   # refresh token lifetime
+
+# --- --- --- Credentials to local resources --- --- ---
+# Database settings:
+db:
+  host: "todo-postgres"
+  port: "5432"
+  user: "app"
+  pass: "StrongPassword"
+  name: "app"
+

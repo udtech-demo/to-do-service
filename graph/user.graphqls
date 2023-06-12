@@ -1,0 +1,11 @@
+type User {
+  id: String!
+  name: String!
+  email: String!
+}
+
+input NewUser {
+  name: String!
+  email: String!
+  password: String!
+}

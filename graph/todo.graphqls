@@ -1,0 +1,20 @@
+type Todo {
+  id: String!
+  text: String!
+  done: Boolean!
+  user: User!
+}
+
+extend type Query {
+  todos: [Todo!]!@auth
+}
+
+input NewTodo {
+  text: String!
+}
+
+extend type Mutation {
+  createTodo(input: NewTodo!): Todo!@auth
+  markCompleteTodo(todoID: String!): Todo!@auth
+  deleteTodo(todoID: String!): Boolean!@auth
+}
